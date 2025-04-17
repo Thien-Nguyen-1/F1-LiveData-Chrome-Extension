@@ -1,2 +1,2 @@
 # f1-live-data
-Just for fun for friends
+Instructions will send at some point :/
