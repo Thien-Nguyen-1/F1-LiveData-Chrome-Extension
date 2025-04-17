@@ -1,0 +1,3 @@
+.livestream-container iframe {
+    clip-path: inset(0 0 0 0); /* Adjust these values to clip specific areas */
+  }
