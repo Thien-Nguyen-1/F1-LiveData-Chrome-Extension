@@ -1,0 +1,21 @@
+{
+    "manifest_version": 3,
+    "name": "Side panel extension",
+    "version": "1.0",
+    "description": "Extension with a default side panel.",
+    "action": {
+      "default_title": "Sidebar"
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "side_panel": {
+      "default_path": "index.html"
+    },
+    "permissions": [
+      "sidePanel",
+      "tabs"
+    
+    ],
+    "host_permissions": ["<all_urls>"]
+  }
