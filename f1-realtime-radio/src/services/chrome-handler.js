@@ -1,8 +1,10 @@
 
+// CHROME TAB HANDLER //
 
+
+/* Method invoked whenever a live radio message is received. Temporarily mutes chrome tabs. */
 export const ToggleTabMute = async () => {
-    // const queryOptions = {audible: true};
-
+  
     const tabs = await chrome.tabs.query({});
 
     await tabs.forEach( async (tab) => {
