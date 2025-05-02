@@ -1,4 +1,10 @@
 @import "tailwindcss";
+
+
+@import "./styles/venue.css";
+@import "./styles/mainpage.css";
+
+/* @import './venue.css'; */
 @font-face {
   font-family: 'F1FontNormal';
   src: url('./assets/fonts/Formula1-Regular.otf') format('opentype');
@@ -11,6 +17,28 @@
   src: url('./assets/fonts/Formula1-Bold.otf') format('opentype');
   font-weight: bold;
   font-style: normal;
+}
+
+h1{
+  /* {fontFamily: 'F1FontBold'  ,fontSize:'1.5rem'} */
+  font-family: 'F1FontBold';
+  font-size: 1.5rem;
+
+}
+
+h3{
+  font-family: 'F1FontBold';
+  font-size: 1rem;
+  
+}
+
+p {
+  font-family: 'F1FontNormal';
+  font-size: 0.8rem;
+}
+
+:root {
+
 }
 /* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

@@ -9,11 +9,23 @@ import F1NotifSound from './assets/sounds/F1NotificationSound.mp3';
 import RaceControlContainer from './components/RaceControl'
 import DriverLiveInfo from './components/DriverLiveInfo'
 
+import MainPage from './pages/MainPage'
+import VenuePage from './pages/VenuPage'
+import CarLiveInfo from './components/CarLiveInfo'
+
+
 function App() {
   
   const isPlaying = useRef(false)
-  const [driverObj, setDriver] = useState({})
+  const [driverObj, setDriver] = useState({}) // ONLY FOR RADIO MESSAGSE
   const [raceControlObj, setRC] = useState({})
+  const [carData, setCarData] = useState({})
+
+  const [page, setPage] = useState("main")
+
+
+  const userPort = useRef(null);
+
 
   const GetMessage = async (data) => {
     if (!isPlaying.current) {
@@ -46,8 +58,34 @@ function App() {
 
 
   const ShowRaceControl = (data) => {
-    setRC(data)
+    setRC(data);
   }
+
+  const ShowCarData = (data) => {
+    setCarData(data);
+  }
+
+  // CAR DATA FUNCTIONALITIES //
+
+  const StartFetchCarData = (carNum) => {
+    if(userPort.current){
+      console.log("FIRING PORT")
+      userPort.current.postMessage({cmd:"start-car-data", data: carNum})
+    } else{
+      console.log("THERES NO PORT")
+    }
+  }
+
+
+
+  // PAGE ROUTING //
+
+
+
+  const SetPage = (choice) => {
+    setPage(choice)
+  }
+
 
 
   const playAudio = (url) => {
@@ -62,8 +100,8 @@ function App() {
   useEffect(() => {
     //demo or live
     const port = chrome.runtime.connect({name: "establish-live-port-connection"});
+    userPort.current = port;
     
-
     port.onMessage.addListener((data)=> {
       // console.log(data)
        switch(data.cmd){
@@ -75,10 +113,13 @@ function App() {
             ShowRaceControl(data.data)
             break;
 
+          case "show-car-data":
+            console.log("SHOWING CAR REAL TIME DATA ", data.data)
 
+            ShowCarData(data.data)
+            break;
 
        }
-
 
       
     })
@@ -92,14 +133,37 @@ function App() {
 
   return (
     <>
-     
-      <div>
-          <DriverMessage driverObj={driverObj}/>
+
+{/* 
+      {console.log("page is ", page)} */}
+    
+
+      <div style={{display: page === 'main' ? "block" : "none"}}>
+      <MainPage
+        SetPage={SetPage}
+        driverObj={driverObj}
+        raceControlObj={raceControlObj} 
+        StartFetchCarData={StartFetchCarData}/>
+
+
+      <CarLiveInfo 
+        carData={carData}/>
+
+
       </div>
+      
+      
+     
 
-      <RaceControlContainer raceControlObj={raceControlObj} />
+      <div style={{display: page === 'venue' ? "block" : "none"}}>
+        <VenuePage 
+          SetPage={SetPage}/>
 
-      <DriverLiveInfo />
+      </div>
+        
+      
+     
+
     </>
   )
 }

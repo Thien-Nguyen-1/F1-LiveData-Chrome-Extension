@@ -12,8 +12,9 @@ const RaceControlContainer = (props) => {
 
 
     const TestSpeaker = async () => {
-        StringParser.ConvertDriverNames("")
+        // StringParser.ConvertDriverNames("")
 
+        if(!raceControlObj){return;}
 
         const base64Audio =  await speak( StringParser.ConvertDriverNames(raceControlObj.message), {to: 'en', forceTo: true}); // => Base64 encoded mp3
 
@@ -21,15 +22,21 @@ const RaceControlContainer = (props) => {
      
         const audio = new Audio(`data:audio/mp3;base64,${base64Audio}`);
         audio.playbackRate = 1.2;
+        
       
         audio.play(); 
 
     }
 
     useEffect( ()=> {
+
+        if(!raceControlObj){
+            return;
+        }
+
         if(raceControlObj.message !== lastMessage.current){
             lastMessage.current = raceControlObj.message;
-
+            
             const run = async () => {
                 await TestSpeaker()
             }
@@ -44,9 +51,9 @@ const RaceControlContainer = (props) => {
        <div className='race-control-container mt-20 mb-20'>
             <h1 style={{fontFamily: 'F1FontBold'  ,fontSize:'1.5rem'}}> Race Control Live Feed </h1>
             {lastMessage.current && raceControlObj &&
-                ( <h2 style={{fontFamily: 'F1FontNormal', fontSize:'1rem'}}>  { StringParser.AddEmoji(raceControlObj) + " " + lastMessage.current} </h2>)
+                ( <h3 className='mt-10'>  { StringParser.AddEmoji(raceControlObj) + " " + lastMessage.current} </h3>)
             }
-           
+            
 
        </div>
     )

@@ -1,0 +1,53 @@
+
+.venue-background-cover{
+ 
+   
+    width: "100vw";
+    height: 20rem;
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.venu-map-container{
+    width: 100vw;
+    height: 15rem;
+    background-color: black;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+   
+}
+
+.venu-map-container img{
+    height: 10rem;
+    width: 15rem;
+}
+
+.venu-weather-container {
+    width: 100vw;
+    height: 15rem;
+    /* background-color: black; */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.venu-weather-container svg{
+    /* color: white; */
+    
+}
+
+.venu-weather-detail {
+    width: 50vw;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+

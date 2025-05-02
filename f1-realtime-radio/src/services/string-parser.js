@@ -32,7 +32,31 @@ const driverCodeObj = {
     "RUS": "george hussle and bustle",
     "SAI": "carlos sigh",
     "STR": "lance stroll",
-    "TSU": "yuki poor noda"
+    "TSU": "yuki poor noda",
+
+}
+
+
+
+
+//TRACK DETAILS 
+
+const trackObj = {
+
+    baseImg: "https://media.formula1.com/content/dam/fom-website/races/2025/race-listing/",
+
+
+
+    "United States": {
+        circuit_name: {
+            "Austin": "United_States", //paste img url
+            "Las Vegas": "United_States",
+        }
+    }
+
+    
+
+
 
 }
 
@@ -43,6 +67,9 @@ const driverCodeObj = {
  // EMOJIS //
 const emojiObj = {
 
+
+
+
     flag: {
         "GREEN" : '🟩',
         "RED": '🟥',
@@ -50,8 +77,11 @@ const emojiObj = {
         "YELLOW": '🟨',
         "DOUBLE YELLOW": '🟨🟨',
         "CLEAR": '🏳️',
-    }
-    
+    },
+
+
+
+
 }
 
 const dictFormulaStr = {
@@ -68,6 +98,11 @@ const dictFormulaStr = {
     teamName: {
         //e.g. Red Bull Racing => red-bull-racing
         replaceSpaceWithDash: (strName) => {return strName.replaceAll(" ", "-")}
+    },
+
+    all: {
+        replaceSpaceWithDash: (strName) => {return strName.replaceAll(" ", "-")},
+        replaceSpaceWithUnderscore: (strName) => {return strName.replaceAll(" ", "_")}
     }
     
 }
@@ -117,9 +152,18 @@ export const ConvertDriverNames = (phrase) => {
 }
 
 export const ReformatTeamName = (team) => {
-    
+
     if(team){
         return dictFormulaStr.teamName.replaceSpaceWithDash(team)
     }
     
+}
+
+
+// GENERIC FUNCTIONS
+
+export const ReformatString = (cmd, str) => {
+    if(cmd){
+        return dictFormulaStr.all[cmd](str);
+    }
 }
