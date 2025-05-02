@@ -48,6 +48,22 @@ export const GetDriverDetail = async (number) => {
     }
 }
 
+export const GetAllDriverDetails = async() => {
+    try {
+        const response = await radioInstance.get('drivers',{
+            params: {
+                session_key:'latest',
+            }
+        })
+
+        return response.data
+    }catch(error){
+        return "invalid-driver";
+    }
+
+}
+
+
 export const GetSpechToText = async (file_url) => {
     try {
         const data = {
@@ -105,20 +121,82 @@ export const GetDriverInterval = async(num) => {
 
 }
 
-export const GetDriverPosition = async(objDetails) => {
+export const GetDriverPosition = async(objDetails = {}) => {
     //objDetails should consist of either: driver_number or position (assuming to be valid)
     const objSend = Object.assign({session_key: 'latest'}, objDetails);
+
+   
 
     try {
         const response = await radioInstance.get(
             'position',
             {params: objSend}
         )
+        
+        console.log("OBJ DETAILS ARE ", objDetails)
 
+        if(Object.keys(objDetails).length == 0){
+            console.log("Returning all")
+            return response.data
+        }
         return response.data.slice(-1)[0]; //returns an object containing driver_number and position
 
     } catch(error){
         return "invalid-driver-position"
     }
+
+}
+
+
+
+export const GetVenueDetails = async(objDetails = {}) => {
+    const objSend = Object.assign({session_key: 'latest'}, objDetails);
+
+    try {  
+        const response = await radioInstance.get(
+            'sessions',
+            {params: objSend}
+        )
+
+        return response.data[0];
+
+    } catch(error){
+        return "invalid-venue-detail"
+    }
+
+}
+
+export const GetWeatherDetails = async(objDetails = {}) => {
+    const objSend = Object.assign({session_key: 'latest'}, objDetails);
+
+    try {
+        const response = await radioInstance.get(
+            'weather',
+            {params: objSend}
+        )
+
+        return response.data.splice(-1)[0];
+
+    } catch(error){
+        return "invalid-weather-detail"
+    }
+}
+
+
+export const GetCarData = async(objDetails = {}) => {
+    const objSend = Object.assign({session_key: 'latest'}, objDetails);
+
+    try {
+        const response = await radioInstance.get(
+            'car_data',
+            {params: objSend}
+        )
+
+        return response.data.splice(-1)[0];
+    } catch(error){
+        return null
+    }
+
+
 
 }

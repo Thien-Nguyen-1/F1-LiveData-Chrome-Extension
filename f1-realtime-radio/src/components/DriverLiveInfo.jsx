@@ -1,10 +1,13 @@
 import { useState, useEffect , useRef} from 'react'
-import { GetDriverDetail, GetDriverLiveData, GetDriverPosition, GetDriverInterval } from '../services/data-api'
+import { GetDriverDetail, GetDriverLiveData, GetDriverPosition, GetDriverInterval, GetAllDriverDetails } from '../services/data-api'
 import * as StringParser from '../services/string-parser.js'
 import DriverCarBox from './DriverCarBox.jsx'
+import CarLiveInfo from './CarLiveInfo.jsx'
 
-const DriverLiveInfo = () => {
 
+const DriverLiveInfo = (props) => {
+
+    if(!props){return(<></>)}
     
     const [driverNum, setDriver] = useState(null)
     const[error, setError] = useState(null)
@@ -16,57 +19,37 @@ const DriverLiveInfo = () => {
     const previousInterval = useRef(-Infinity)
 
 
+   
+
     const UpdateDriver = (e) => {
         e.preventDefault()
+        
+        
 
         //check valid user input
         const num = Number(usrInput.current.value);
 
+
+
         if(!Number.isNaN(num)){
+
+            props.StartFetchCarData(num)
+
             setError(null)
 
-            const temp = async () => {
 
-                const response = await GetDriverLiveData(num);
-                const response_2 = await GetDriverDetail(num);
-
-                if(response_2 !== undefined){
-                    driverObj.current = response_2;
-
-                    //get the opponent details:
-                    const positionObj = await GetDriverPosition({driver_number: response_2.driver_number})
-
-                    if(positionObj.position > 1) {
-                        const nextPos = positionObj.position -1;
-
-                        const oppPositionObj = await GetDriverPosition({position: nextPos})
-
-                        if(oppPositionObj !== 'invalid-driver-position'){
-
-                            const oppObj = await GetDriverDetail(oppPositionObj.driver_number);
-                            console.log("OPPONENT IS ", oppObj)
-                            if(oppObj !== undefined){
-                                console.log("RENDERING OPPONENT")
-                                opponentObj.current = oppObj;
-                            }
-
-                        }
-
-                    }
-
-                } else {
-                    driverObj.current = {};
-                    opponentObj.current = {};
-                }
-
-            
-                console.log("DRIVER DATA ", response_2);
-                
+            const GetData = async () => {
+                const driverObj_ = await GetDriverDetail(num)
+                driverObj.current = driverObj_
+                setDriver(num)
 
             }
 
-            temp()
-            setDriver(num)
+            GetData()
+            
+            
+           
+            // setDriver(num)
             
         } else {
             setError("Please enter a valid driver number")
@@ -77,38 +60,14 @@ const DriverLiveInfo = () => {
 
     useEffect(() => {
 
-        console.log("RERENDERING DRIVER LIVE INFO")
-
-        if(driverNum){
-            //fetch the interval
-
-            const handleInterval = async() => {
-                const intervalObj = await GetDriverInterval(driverNum);
-
-                if(intervalObj !==  "invalid-driver-number"){
-
-                    const intervalVal = intervalObj.interval;
-
-                    if(previousInterval.current != intervalVal){
-                        previousInterval.current = interval;
-                        setInterval(intervalVal);
-
-                    }
-
-                }   
-                
-            }
-
-            handleInterval()
-
-        }
+        
 
         
     })
 
+
+    
    
-
-
 
     return (
         <>
@@ -134,29 +93,9 @@ const DriverLiveInfo = () => {
 
             
             <div>
-                 <DriverCarBox driverObj={driverObj.current}/> 
-               
-                {/* {opponentObj.driver_number && ( 
-                    <> */}
-                     <h3 style={{fontFamily: 'F1FontBold'  ,fontSize:'1rem'}} > VS </h3>
-                    <DriverCarBox driverObj={opponentObj.current} />
-                    {/* </>
-                )} */}
+                 <DriverCarBox driverObj={driverObj.current}/>   
             </div>
 
-            <div>
-            <h3
-        style={{
-            fontFamily: 'F1FontBold',
-            fontSize: '1rem',
-            color: interval <= previousInterval.current ? 'green' : 'red'
-        }}
-    >
-            {`Interval +${interval}`} s
-        </h3>
-
-
-            </div>
             
 
         </>

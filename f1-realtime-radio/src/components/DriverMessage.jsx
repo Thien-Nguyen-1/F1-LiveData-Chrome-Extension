@@ -25,7 +25,7 @@ const DriverMessage = (props) => {
                 
             </div>
         <p style={{fontFamily: 'F1FontNormal'}} className="text-sm  text-white">{team_name}</p>
-        <i style={{fontFamily: 'F1FontNormal'}}className="text-sm  text-white"> "{transcript}" </i>
+        <i style={{fontFamily: 'F1FontNormal'}}className=" animate-typing text-sm  text-white"> "{transcript}" </i>
         </div>
 
         </div>
