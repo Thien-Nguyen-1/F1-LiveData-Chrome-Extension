@@ -11,4 +11,5 @@ A chrome sidebar extension which displays various real time data during a Formul
 
 
 ### Set Up Instructions
--
+- In the *.env* file, place your AssemblyAI API key in order for the transcript functionality to work.
+- Run ```npm build``` to bundle all files (saved under *dist* directory) and unpack these on chrome://extensions/
