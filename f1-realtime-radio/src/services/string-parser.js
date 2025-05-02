@@ -1,32 +1,24 @@
-//custom string parser 
+/* Helper functions to manipulate strings into desired results as shown below*/
 
 
-//https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/mercedes.png
-
-//red-bull-racing
-//williams.png
-//racing-bulls.png
-//kick-sauber.png
-//aston-martin
-//haas => driver data shows Haas F1 team => driver.data.includes(name) workaround
-
-
-// DRIVER ABBREVIATIONS //
+// DRIVER DETAILS //
+/* Driver names associated with their driver code written in a specific way for Text To Speech (TTS)  
+    to pronounce it correctly */
 const driverCodeObj = {
     "ALB": "alex albon",
-    "VER": "fraud stappen",
+    "VER": "ver stappen",
     "ALO": "alonso",
-    "ANT": "ant toe nelly",
+    "ANT": "ant toe nelly", 
     "BEA": "oliver bearman",
     "BOR": "gabriel bortoleto",
     "DOO": "jack Doohan",
     "GAS": "pierre gasly",
-    "HAD": "isack had a jar of pickles",
-    "HAM": "lulu hamilton",
-    "HUL": "nico hulken burger",
-    "LAW": "liam slowson",
+    "HAD": "isack had jar",
+    "HAM": "lewis hamilton",
+    "HUL": "nico hulken burg",
+    "LAW": "liam lawson",
     "LEC": "charles le clair",
-    "NOR": "lando porridge",
+    "NOR": "lando norris",
     "OCO": "esteban ocon",
     "PIA": "oscar pastry",
     "RUS": "george hussle and bustle",
@@ -39,37 +31,26 @@ const driverCodeObj = {
 
 
 
-//TRACK DETAILS 
+// TRACK DETAILS //
 
 const trackObj = {
 
     baseImg: "https://media.formula1.com/content/dam/fom-website/races/2025/race-listing/",
 
-
-
+    //only add countries that have multiple track venues.
     "United States": {
         circuit_name: {
-            "Austin": "United_States", //paste img url
+            "Austin": "United_States", 
             "Las Vegas": "United_States",
         }
     }
-
-    
-
-
 
 }
 
 
 
-
-
  // EMOJIS //
 const emojiObj = {
-
-
-
-
     flag: {
         "GREEN" : '🟩',
         "RED": '🟥',
@@ -120,16 +101,12 @@ export const AddEmoji = (rcObj) => {
 
     if(Object.keys(dictFormulaStr).includes(category)){
 
-        // console.log(`emoji message is ${dictFormulaStr[category].setEmoji(rcObj)}` )
-
         return `${dictFormulaStr[category].setEmoji(rcObj)}`
     } else {
         return "";
     }
   
 }
-
-
 
 
 
@@ -160,7 +137,7 @@ export const ReformatTeamName = (team) => {
 }
 
 
-// GENERIC FUNCTIONS
+// GENERIC FUNCTIONS //
 
 export const ReformatString = (cmd, str) => {
     if(cmd){
