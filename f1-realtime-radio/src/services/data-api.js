@@ -14,9 +14,9 @@ const ttsClient = new AssemblyAI({
 })
 
 
-// console.log(radioInstance.baseURL)
+
 export const GetDriverDetail = async (number) => {
-    // console.log("Drive number is ", number)
+    
     if(!number){return;}
 
     try {
@@ -27,9 +27,9 @@ export const GetDriverDetail = async (number) => {
                 session_key: 'latest', // Use 'latest' to fetch data for the current session
             }
         });
-        // console.log("Fetched")
+     
         if (response.data && response.data.length > 0) {
-            // console.log(response.data);
+           
             const driverObj = {
                 full_name: response.data[0].full_name,  // Accessing data inside response.data
                 headshot_url: response.data[0].headshot_url,
