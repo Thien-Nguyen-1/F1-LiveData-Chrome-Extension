@@ -24,7 +24,8 @@ const driverCodeObj = {
     "RUS": "george hussle and bustle",
     "SAI": "carlos sigh",
     "STR": "lance stroll",
-    "TSU": "yuki poor noda",
+    "TSU": "yuki su noda",
+    "COL": "franco colapinto",
 
 }
 
